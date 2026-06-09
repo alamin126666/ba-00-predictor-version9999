@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BA-00-PREDICTOR</title>
+    <link rel="icon" type="image/png" href="https://i.postimg.cc/8zXQtTvn/file-00000000ca9c720898ec73c2cdf8c576.png" />
+    <link rel="apple-touch-icon" href="https://i.postimg.cc/8zXQtTvn/file-00000000ca9c720898ec73c2cdf8c576.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+    <link rel="stylesheet" href="assets/a/b/c/styles.css">
+
+<script src="https://unpkg.com/@lottiefiles/lottie-player@2.0.8/dist/lottie-player.js"></script>
+</head>
+<body class="locked">
+
+<!-- ═══════════ Gate: Loading → Login ═══════════ -->
+<div id="gate-overlay" class="gate-overlay">
+    <div class="gate-orb a"></div>
+    <div class="gate-orb b"></div>
+    <div class="gate-orb c"></div>
+    <span class="gate-particle" style="left:8%;  animation-duration: 9s;  animation-delay: 0s;"></span>
+    <span class="gate-particle" style="left:22%; animation-duration: 12s; animation-delay: 2s;"></span>
+    <span class="gate-particle" style="left:38%; animation-duration: 7s;  animation-delay: 1s;"></span>
+    <span class="gate-particle" style="left:55%; animation-duration: 11s; animation-delay: 3s;"></span>
+    <span class="gate-particle" style="left:68%; animation-duration: 8s;  animation-delay: 0.5s;"></span>
+    <span class="gate-particle" style="left:82%; animation-duration: 10s; animation-delay: 2.5s;"></span>
+    <span class="gate-particle" style="left:92%; animation-duration: 13s; animation-delay: 1.5s;"></span>
+
+    <div class="gate-loading">
+        <div class="gate-lottie-wrap" style="position:relative;">
+            <lottie-player id="gate-lottie"
+                src="https://assets10.lottiefiles.com/packages/lf20_x62chJ.json"
+                background="transparent" speed="1.2"
+                style="width: 220px; height: 220px; position:absolute; inset:0;" loop autoplay></lottie-player>
+            <div style="position:relative; z-index:2; width:88px; height:88px; border-radius:24px; background: var(--grad-primary); display:flex; align-items:center; justify-content:center; box-shadow: 0 16px 40px var(--primary-glow), inset 0 0 0 2px rgba(255,255,255,0.12); animation: logoFloat 3s ease-in-out infinite;">
+                <svg viewBox="0 0 24 24" style="width:46px; height:46px; fill:#fff; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.35));">
+                    <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
+                </svg>
+            </div>
+        </div>
+        <div>
+            <div class="gate-brand-title" style="text-align:center;">BA-00 PREDICTOR</div>
+            <div class="gate-brand-sub">Initializing Quantum Engine</div>
+        </div>
+        <div class="gate-progress"></div>
+        <div id="gate-status" class="gate-status">LOADING MODULES…</div>
+    </div>
+
+    <div class="gate-login">
+        <div class="gate-card">
+            <div class="gate-logo">
+                <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+            </div>
+            <div class="gate-title">UNLOCK ACCESS</div>
+            <div class="gate-subtitle">Enter your premium key</div>
+            <form id="gate-form" autocomplete="off" onsubmit="return false;">
+                <div class="gate-input-wrap">
+                    <svg viewBox="0 0 24 24"><path d="M12.65 10C11.83 7.67 9.61 6 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6c2.61 0 4.83-1.67 5.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>
+                    <input id="gate-input" class="gate-input" type="text" placeholder="BA-00-XXXXX" spellcheck="false"/>
+                </div>
+                <button id="gate-submit" type="submit" class="gate-btn">
+                    UNLOCK
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="#fff"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+                </button>
+                <div id="gate-msg" class="gate-msg"></div>
+            </form>
+            <div class="gate-hint">🔑 KEY FORMAT: BA-00-XXXXX</div>
+            <a class="gate-tg" href="https://t.me/BDALAMINHACKER" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg>
+                SUPPORT — @BDALAMINHACKER
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Telegram support FAB on dashboard -->
+<a href="https://t.me/BDALAMINHACKER" target="_blank" rel="noopener" class="tg-fab" title="Support: @BDALAMINHACKER">
+    <svg viewBox="0 0 24 24"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg>
+</a>
+
+
+<!-- ─── Ambient Orbs ─── -->
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<!-- ─── Toast ─── -->
+<div id="toast-container"></div>
+
+<!-- ─── Result Dialog (Modern Win/Loss/Skip) ─── -->
+<div id="result-dialog-overlay" class="result-dialog-overlay">
+    <div id="result-dialog-box" class="result-dialog-box">
+        <div class="rd-drag-handle"></div>
+        <div id="rd-icon-circle" class="rd-icon-circle win-circle">
+            <svg id="rd-icon-svg" viewBox="0 0 24 24"></svg>
+        </div>
+        <div id="rd-title" class="rd-title win-title">WIN!</div>
+        <div id="rd-period-label" class="rd-period-label">PERIOD —</div>
+        <div id="rd-result-row" class="rd-result-row">
+            <div id="rd-pred-chip" class="rd-chip pred-chip">SMALL</div>
+            <div class="rd-arrow-icon">→</div>
+            <div id="rd-actual-chip" class="rd-chip correct">SMALL</div>
+        </div>
+        <div id="rd-reason-tag" class="rd-reason-tag win-tag">BIG STREAK BREAK</div>
+        <div id="rd-body-text" class="rd-body-text">Loading...</div>
+        <button id="rd-close-btn" class="rd-close-btn win-btn">GOT IT</button>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════ SETTINGS PAGE ═══════════════════════════════════ -->
+<div id="settings-page" class="page hidden">
+    <div class="mkt-header animate-in">
+        <span class="page-title">SETTINGS</span>
+    </div>
+
+    <div class="card-3d animate-in" style="max-width:460px;">
+        <div class="section-header">
+            <div class="section-icon-wrap">
+                <svg viewBox="0 0 24 24"><path d="M12 22C6.49 22 2 17.51 2 12S6.49 2 12 2s10 4.04 10 9c0 3.31-2.69 6-6 6h-1.77c-.28 0-.5.22-.5.5 0 .12.05.23.13.33.41.47.64 1.06.64 1.67A2.5 2.5 0 0 1 12 22zm0-18c-4.41 0-8 3.59-8 8s3.59 8 8 8c.28 0 .5-.22.5-.5a.54.54 0 0 0-.14-.35c-.41-.46-.63-1.05-.63-1.65a2.5 2.5 0 0 1 2.5-2.5H16c2.21 0 4-1.79 4-4 0-3.86-3.59-7-8-7zM6.5 13c-.83 0-1.5-.67-1.5-1.5S5.67 10 6.5 10s1.5.67 1.5 1.5S7.33 13 6.5 13zm3-4C8.67 9 8 8.33 8 7.5S8.67 6 9.5 6s1.5.67 1.5 1.5S10.33 9 9.5 9zm5 0c-.83 0-1.5-.67-1.5-1.5S13.67 6 14.5 6s1.5.67 1.5 1.5S15.33 9 14.5 9zm3 4c-.83 0-1.5-.67-1.5-1.5S16.67 10 17.5 10s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+            </div>
+            <span class="section-title">Color Theme</span>
+        </div>
+        <div class="theme-grid" id="theme-grid">
+            <!-- swatches injected by JS -->
+        </div>
+    </div>
+
+    <div class="card-3d animate-in" style="max-width:460px;">
+        <div class="section-header">
+            <div class="section-icon-wrap">
+                <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+            </div>
+            <span class="section-title">AI Analysis Key</span>
+        </div>
+        <div class="g-line"></div>
+        <div class="apikey-input-wrap">
+            <input id="apikey-input" class="apikey-input" type="password" placeholder="sk-or-v1-..." autocomplete="off"/>
+            <button id="apikey-save" class="apikey-save-btn">
+                <svg viewBox="0 0 24 24" fill="#fff" width="14" height="14"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                SAVE
+            </button>
+        </div>
+        <div id="apikey-status" class="apikey-status"></div>
+        <div class="apikey-hint">
+            Free key → <a href="https://openrouter.ai" target="_blank">openrouter.ai</a> · stored locally on this device
+        </div>
+    </div>
+</div>
+<!-- ═══════════════════════════════════ HOME PAGE ═══════════════════════════════════ -->
+<div id="dashboard-page" class="page">
+    <div class="dash-header animate-in">
+        <div class="dash-logo-wrap">
+            <img src="https://i.postimg.cc/8zXQtTvn/file-00000000ca9c720898ec73c2cdf8c576.png"
+                 alt="BA-00" class="dash-logo">
+            <div>
+                <div class="dash-brand">BA-00-PREDICTOR<span>ADVANCED SIGNAL SYSTEM</span></div>
+            </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+            <div id="ai-key-btn" class="ai-key-btn" title="Toggle AI">
+                <svg viewBox="0 0 24 24"><path d="M21 11h-2.06A6.99 6.99 0 0 0 13 5.06V3h-2v2.06A6.99 6.99 0 0 0 5.06 11H3v2h2.06A6.99 6.99 0 0 0 11 18.94V21h2v-2.06A6.99 6.99 0 0 0 18.94 13H21v-2zm-9 6a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-8a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/></svg>
+                <span id="ai-key-label">AI OFF</span>
+            </div>
+            <div class="live-badge">
+                <div class="live-dot"></div>
+                <span class="live-text">LIVE</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Market Selector Tabs -->
+    <div class="market-tabs animate-in">
+        <button class="mtab" data-market="30S">
+            <div class="mtab-clock">
+                <svg viewBox="0 0 24 24" fill="#999"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>
+            </div>
+            <div class="mtab-label">WinGo<br>30sec</div>
+        </button>
+        <button class="mtab active" data-market="1M">
+            <div class="mtab-clock">
+                <svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>
+            </div>
+            <div class="mtab-label">WinGo<br>1 Min</div>
+        </button>
+        <button class="mtab" data-market="3M">
+            <div class="mtab-clock">
+                <svg viewBox="0 0 24 24" fill="#999"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>
+            </div>
+            <div class="mtab-label">WinGo<br>3 Min</div>
+        </button>
+        <button class="mtab" data-market="5M">
+            <div class="mtab-clock">
+                <svg viewBox="0 0 24 24" fill="#999"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>
+            </div>
+            <div class="mtab-label">WinGo<br>5 Min</div>
+        </button>
+    </div>
+
+    <!-- Period + Timer Card -->
+    <div class="card-3d animate-in" style="max-width:440px;">
+        <div class="card-stripe"></div>
+        <div class="section-header">
+            <div class="section-icon-wrap">
+                <!-- Clock SVG Icon -->
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>
+            </div>
+            <span class="section-title">CURRENT PERIOD</span>
+        </div>
+        <div class="period-row">
+            <div class="period-box">
+                <div class="p-label">PERIOD</div>
+                <div id="current-period" class="p-value">—</div>
+            </div>
+            <div class="timer-box">
+                <div class="p-label">REMAINING</div>
+                <div id="timer-display" class="t-value">59</div>
+            </div>
+        </div>
+        <!-- Period Last 3 Digits Separate Display -->
+        <div id="period-last3-row" style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:10px;padding:10px 14px;background:linear-gradient(135deg,rgba(0,200,83,0.08),rgba(0,137,123,0.06));border-radius:14px;border:1px solid rgba(0,200,83,0.18);">
+            <svg viewBox="0 0 24 24" fill="var(--primary)" width="14" height="14"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+            <span style="font-size:10px;font-weight:600;color:var(--text-3);letter-spacing:1px;">PERIOD LAST 3</span>
+            <div id="period-last3" style="font-family:var(--font-mono);font-size:20px;font-weight:900;color:var(--primary-dark);letter-spacing:3px;text-shadow:0 0 12px rgba(0,200,83,0.4);">—</div>
+            <div style="width:1px;height:20px;background:rgba(0,200,83,0.2);"></div>
+            <span style="font-size:10px;font-weight:600;color:var(--text-3);letter-spacing:1px;">COPY ID</span>
+        </div>
+        <div class="g-line"></div>
+
+        <!-- Prediction Stage -->
+        <div class="pred-stage" id="pred-stage">
+            <div class="pred-label">PREDICTION SIGNAL</div>
+            <div id="prediction-display" class="pred-value">---</div>
+
+            <!-- Number Predictions -->
+            <div class="num-pred-row" id="num-pred-row" style="display:none;">
+                <div class="num-pred-card primary">
+                    <div class="num-pred-lbl">PRIMARY NUM</div>
+                    <div id="pred-num-primary" class="num-pred-val">—</div>
+                    <div class="num-pred-sub">Main Bet</div>
+                </div>
+                <div class="num-jackpot-icon">
+                    <svg viewBox="0 0 24 24" fill="#FF6D00" width="18" height="18"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                </div>
+                <div class="num-pred-card jackpot">
+                    <div class="num-pred-lbl">JACKPOT NUM</div>
+                    <div id="pred-num-jackpot" class="num-pred-val">—</div>
+                    <div class="num-pred-sub">Jackpot Win</div>
+                </div>
+            </div>
+
+            <!-- Analyzing Overlay -->
+            <div class="analyze-wrap" id="analyze-wrap">
+                <div class="analyze-ring-outer">
+                    <svg viewBox="0 0 72 72">
+                        <circle class="ring-track" cx="36" cy="36" r="29"/>
+                        <circle id="analyze-ring-fill" class="ring-fill" cx="36" cy="36" r="29"/>
+                    </svg>
+                    <div id="analyze-pct" class="analyze-ring-pct">0%</div>
+                </div>
+                <div class="analyze-title" id="analyze-title">// ANALYZING...</div>
+                <div class="analyze-steps">
+                    <div class="analyze-step" id="astep-1">
+                        <div class="step-dot"></div>
+                        <div class="step-check"><svg viewBox="0 0 10 10" fill="white" width="8" height="8"><path d="M1 5l2.8 2.8L9 2"/></svg></div>
+                        <svg viewBox="0 0 16 16" fill="currentColor" width="13" height="13" style="flex-shrink:0"><path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 1a6 6 0 0 1 4.47 10H3.53A6 6 0 0 1 8 2zm-1 3v4h2V5H7zm0 5v2h2v-2H7z"/></svg>
+                        Market Data Collecting
+                    </div>
+                    <div class="analyze-step" id="astep-2">
+                        <div class="step-dot"></div>
+                        <div class="step-check"><svg viewBox="0 0 10 10" fill="white" width="8" height="8"><path d="M1 5l2.8 2.8L9 2"/></svg></div>
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13" style="flex-shrink:0"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                        Pattern Detection
+                    </div>
+                    <div class="analyze-step" id="astep-3">
+                        <div class="step-dot"></div>
+                        <div class="step-check"><svg viewBox="0 0 10 10" fill="white" width="8" height="8"><path d="M1 5l2.8 2.8L9 2"/></svg></div>
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13" style="flex-shrink:0"><path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z"/></svg>
+                        Streak + Firebase Analysis
+                    </div>
+                    <div class="analyze-step" id="astep-4">
+                        <div class="step-dot"></div>
+                        <div class="step-check"><svg viewBox="0 0 10 10" fill="white" width="8" height="8"><path d="M1 5l2.8 2.8L9 2"/></svg></div>
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13" style="flex-shrink:0"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+                        500+ History Logic Check
+                    </div>
+                    <div class="analyze-step" id="astep-5">
+                        <div class="step-dot"></div>
+                        <div class="step-check"><svg viewBox="0 0 10 10" fill="white" width="8" height="8"><path d="M1 5l2.8 2.8L9 2"/></svg></div>
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13" style="flex-shrink:0"><path d="M1 9l2 2c2.88-2.88 6.79-4.08 10.53-3.62l1.19-2.55C10.09 4.17 4.65 5.8 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.21-2.21 5.22-3.12 8.09-2.74l1.2-2.57C12.89 9.31 8.47 10.5 5 13z"/></svg>
+                        Signal Generating
+                    </div>
+                    <div class="analyze-step" id="astep-6">
+                        <div class="step-dot"></div>
+                        <div class="step-check"><svg viewBox="0 0 10 10" fill="white" width="8" height="8"><path d="M1 5l2.8 2.8L9 2"/></svg></div>
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13" style="flex-shrink:0"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+                        AI Cross-Validation
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Confidence -->
+        <div class="conf-wrap">
+            <div class="conf-label">
+                <span class="conf-tag">CONFIDENCE</span>
+                <span id="confidence-text" class="conf-pct">--%</span>
+            </div>
+            <div class="conf-track">
+                <div id="confidence-fill" class="conf-fill"></div>
+            </div>
+        </div>
+
+        <!-- AI Insight Card -->
+        <div id="ai-insight-wrap" class="ai-insight-wrap">
+            <div class="ai-insight-header">
+                <div class="ai-dot"></div>
+                <span class="ai-label">AI ANALYSIS</span>
+                <div id="ai-badge" class="ai-badge loading">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="10" height="10"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+                    <span id="ai-badge-text">Analyzing</span>
+                </div>
+            </div>
+            <div id="ai-loading-row" class="ai-loading-row">
+                <div class="spin-ring"></div>
+                AI market analysis running...
+            </div>
+            <div id="ai-result-body" style="display:none;">
+                <div id="ai-vote" class="ai-vote">—</div>
+                <div id="ai-reason" class="ai-reason">—</div>
+            </div>
+        </div>
+
+        <!-- Copy Signal Button -->
+        <button id="copy-signal-btn" class="copy-signal-btn">
+            <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+            COPY SIGNAL
+        </button>
+    </div>
+
+    <!-- Stats Card -->
+    <div class="card-3d animate-in" style="max-width:440px;">
+        <div class="card-stripe"></div>
+        <div class="section-header">
+            <div class="section-icon-wrap">
+                <!-- Analytics SVG Icon -->
+                <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+            </div>
+            <span class="section-title">PERFORMANCE ANALYTICS</span>
+            <div id="fb-badge" style="display:flex;align-items:center;gap:4px;background:rgba(0,137,123,0.1);border:1px solid rgba(0,137,123,0.25);padding:3px 8px;border-radius:12px;margin-left:auto;">
+                <svg viewBox="0 0 24 24" fill="var(--secondary)" width="11" height="11"><path d="M12 3C7.58 3 4 4.79 4 7v10c0 2.21 3.58 4 8 4s8-1.79 8-4V7c0-2.21-3.58-4-8-4zm6 14c0 .5-2.13 2-6 2s-6-1.5-6-2v-2.23c1.61.78 3.72 1.23 6 1.23s4.39-.45 6-1.23V17zm0-5c0 .5-2.13 2-6 2s-6-1.5-6-2v-2.23C7.61 10.55 9.72 11 12 11s4.39-.45 6-1.23V12zm-6-3C8.13 9 6 7.5 6 7s2.13-2 6-2 6 1.5 6 2-2.13 2-6 2z"/></svg>
+                <span id="fb-history-count" style="font-family:var(--font-mono);font-size:9px;font-weight:700;color:var(--secondary);letter-spacing:0.5px;">0</span>
+            </div>
+        </div>
+        <div class="g-line"></div>
+        <div class="stats-grid">
+            <div class="stat-tile win-tile">
+                <div class="tile-icon">
+                    <!-- Trophy SVG -->
+                    <svg viewBox="0 0 24 24" fill="var(--accent-win)"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z"/></svg>
+                </div>
+                <div id="win-stat" class="tile-val win-val">0</div>
+                <div class="tile-lbl">TOTAL WIN</div>
+            </div>
+            <div class="stat-tile loss-tile">
+                <div class="tile-icon">
+                    <!-- X Circle SVG -->
+                    <svg viewBox="0 0 24 24" fill="var(--accent-loss)"><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"/></svg>
+                </div>
+                <div id="loss-stat" class="tile-val loss-val">0</div>
+                <div class="tile-lbl">TOTAL LOSS</div>
+            </div>
+            <div class="stat-tile sig-tile">
+                <div class="tile-icon">
+                    <!-- Signal SVG -->
+                    <svg viewBox="0 0 24 24" fill="var(--primary)"><path d="M1 9l2 2c2.88-2.88 6.79-4.08 10.53-3.62l1.19-2.55C10.09 4.17 4.65 5.8 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.21-2.21 5.22-3.12 8.09-2.74l1.2-2.57C12.89 9.31 8.47 10.5 5 13zM21 4.5l-1.19 2.54C21.2 8.13 22 10 22 12h2c0-2.73-1.07-5.38-3-7.5z"/></svg>
+                </div>
+                <div id="signal-stat" class="tile-val sig-val">0</div>
+                <div class="tile-lbl">TOTAL SIGNAL</div>
+            </div>
+            <div class="stat-tile rate-tile">
+                <div class="tile-icon">
+                    <!-- Trending Up SVG -->
+                    <svg viewBox="0 0 24 24" fill="var(--accent-big)"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg>
+                </div>
+                <div id="rate-stat" class="tile-val rate-val">0%</div>
+                <div class="tile-lbl">WIN RATE</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════ GAME PAGE ═══════════════════════════════════ -->
+<div id="game-page" class="page hidden" style="padding:0;padding-bottom:72px;">
+
+    <!-- Game Selector Bar (shown when no game loaded) -->
+    <div id="game-selector" class="game-selector">
+        <div class="game-sel-header animate-in">
+            <span class="page-title">SELECT GAME</span>
+            <div class="live-badge"><div class="live-dot"></div><span class="live-text">READY</span></div>
+        </div>
+        <div class="game-btn-grid animate-in">
+            <!-- HGZY -->
+            <div class="game-card" id="hgzy-game">
+                <div class="game-card-icon">
+                    <svg viewBox="0 0 24 24" fill="white" width="28" height="28"><path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5S14.67 12 15.5 12s1.5.67 1.5 1.5S16.33 15 15.5 15zm3-3c-.83 0-1.5-.67-1.5-1.5S17.67 9 18.5 9s1.5.67 1.5 1.5S19.33 12 18.5 12z"/></svg>
+                </div>
+                <div class="game-card-name">HGZY GAME</div>
+                <div class="game-card-url">hgnice5.com</div>
+                <div class="game-card-play">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M8 5v14l11-7z"/></svg>
+                    PLAY NOW
+                </div>
+            </div>
+            <!-- DKWIN -->
+            <div class="game-card game-card-teal" id="dkwin-game">
+                <div class="game-card-icon">
+                    <svg viewBox="0 0 24 24" fill="white" width="28" height="28"><path d="M20.5 11H19V7c0-1.1-.9-2-2-2h-4V3.5C13 2.12 11.88 1 10.5 1S8 2.12 8 3.5V5H4c-1.1 0-1.99.9-1.99 2v3.8H3.5c1.49 0 2.7 1.21 2.7 2.7s-1.21 2.7-2.7 2.7H2V20c0 1.1.9 2 2 2h3.8v-1.5c0-1.49 1.21-2.7 2.7-2.7 1.49 0 2.7 1.21 2.7 2.7V22H17c1.1 0 2-.9 2-2v-4h1.5c1.38 0 2.5-1.12 2.5-2.5S21.88 11 20.5 11z"/></svg>
+                </div>
+                <div class="game-card-name">DKWIN GAME</div>
+                <div class="game-card-url">dkwin9.com</div>
+                <div class="game-card-play">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M8 5v14l11-7z"/></svg>
+                    PLAY NOW
+                </div>
+            </div>
+        </div>
+        <p class="game-hint animate-in">Tap a game card to load it with live prediction overlay</p>
+    </div>
+
+    <!-- Inline Game Browser (shown when game loaded) -->
+    <div id="game-browser" class="game-browser hidden">
+        <!-- Sticky Prediction Bar -->
+        <div class="game-pred-bar">
+            <div class="game-pred-left">
+                <div class="game-pred-dot"></div>
+                <span class="game-pred-name" id="browser-game-name">GAME</span>
+            </div>
+            <div class="game-pred-center">
+                <span class="gpb-label">SIGNAL</span>
+                <span class="gpb-value" id="browser-prediction">---</span>
+            </div>
+            <div class="game-pred-right">
+                <span class="gpb-label">TIME</span>
+                <span class="gpb-timer" id="browser-timer">59</span>
+                <button class="gpb-close-btn" id="browser-close">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                </button>
+            </div>
+        </div>
+        <!-- Loading bar -->
+        <div class="game-load-bar" id="game-load-bar">
+            <div class="game-load-fill" id="game-load-fill"></div>
+        </div>
+        <!-- Web Frame -->
+        <iframe id="game-frame" class="game-iframe" src="" frameborder="0" allowfullscreen></iframe>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════ MARKET PAGE ═══════════════════════════════════ -->
+<div id="market-page" class="page hidden">
+    <div class="mkt-header animate-in">
+        <span class="page-title">LIVE MARKET</span>
+        <button id="refresh-market" class="btn btn-outline btn-sm">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
+            Refresh
+        </button>
+    </div>
+
+    <div class="card-3d animate-in" style="max-width:440px;">
+        <div class="card-stripe"></div>
+        <div class="section-header">
+            <div class="section-icon-wrap">
+                <svg viewBox="0 0 24 24"><path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z"/></svg>
+            </div>
+            <span class="section-title">MARKET DATA</span>
+        </div>
+        <div class="g-line"></div>
+        <div class="mkt-table-wrap">
+            <table class="mkt-table">
+                <thead>
+                    <tr><th>PERIOD</th><th>NUMBER</th><th>RESULT</th></tr>
+                </thead>
+                <tbody id="market-table-body">
+                    <tr><td colspan="3" style="padding:24px;text-align:center;color:var(--text-3);font-size:11px;">
+                        <div class="loader-3d"></div>Loading market data…
+                    </td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="mkt-summary">
+            <div class="mkt-sum-card">
+                <div class="mkt-sum-val c-big" id="big-count">0</div>
+                <div class="mkt-sum-lbl">BIG</div>
+            </div>
+            <div class="mkt-sum-card">
+                <div class="mkt-sum-val c-small" id="small-count">0</div>
+                <div class="mkt-sum-lbl">SMALL</div>
+            </div>
+            <div class="mkt-sum-card">
+                <div class="mkt-sum-val c-total" id="total-results">—</div>
+                <div class="mkt-sum-lbl">TOTAL</div>
+            </div>
+        </div>
+        <div class="g-line"></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:0 4px;">
+            <div style="text-align:center;">
+                <div style="font-size:10px;color:var(--text-3);font-weight:600;margin-bottom:3px;">LAST #</div>
+                <div id="last-number" class="mkt-sum-val" style="font-size:16px;color:var(--text);">—</div>
+            </div>
+            <div style="text-align:center;">
+                <div style="font-size:10px;color:var(--text-3);font-weight:600;margin-bottom:3px;">TREND</div>
+                <div id="trend" class="mkt-sum-val" style="font-size:16px;">—</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════ HISTORY PAGE ═══════════════════════════════════ -->
+<div id="history-page" class="page hidden">
+    <div class="hist-header animate-in">
+        <span class="page-title">SIGNAL HISTORY</span>
+    </div>
+    <div class="hist-stats animate-in">
+        <div class="hist-stat-tile">
+            <div id="total-predictions" class="hist-stat-val">0</div>
+            <div class="hist-stat-lbl">TOTAL PREDICTIONS</div>
+        </div>
+        <div class="hist-stat-tile">
+            <div id="accuracy-rate" class="hist-stat-val">0%</div>
+            <div class="hist-stat-lbl">ACCURACY RATE</div>
+        </div>
+    </div>
+    <div class="filter-row animate-in">
+        <button id="filter-all" class="filter-btn active">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+            All
+        </button>
+        <button id="filter-win" class="filter-btn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2z"/></svg>
+            Win
+        </button>
+        <button id="filter-loss" class="filter-btn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"/></svg>
+            Loss
+        </button>
+    </div>
+    <div id="history-list" class="hist-list animate-in">
+        <div style="text-align:center;padding:40px 24px;color:var(--text-3);font-size:12px;">
+            <div class="loader-3d" style="margin-bottom:12px;"></div>
+            Waiting for first signal…
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════ BOTTOM NAV ═══════════════════════════════════ -->
+<nav id="bottom-nav">
+    <div id="nav-home" class="nav-btn active">
+        <div class="nav-active-pill"></div>
+        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        <span>Home</span>
+    </div>
+    <div id="nav-market" class="nav-btn">
+        <div class="nav-active-pill"></div>
+        <svg viewBox="0 0 24 24"><path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z"/></svg>
+        <span>Market</span>
+    </div>
+    <div id="nav-history" class="nav-btn">
+        <div class="nav-active-pill"></div>
+        <svg viewBox="0 0 24 24"><path d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>
+        <span>History</span>
+    </div>
+    <div id="nav-settings" class="nav-btn">
+        <div class="nav-active-pill"></div>
+        <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 00.12-.61l-1.92-3.32a.488.488 0 00-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 00-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94 0 .31.02.64.07.94l-2.03 1.58a.49.49 0 00-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+        <span>Settings</span>
+    </div>
+</nav>
+
+<script src="assets/a/b/c/application.js"></script>
+
+</body>
+</html>
